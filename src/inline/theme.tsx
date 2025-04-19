@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect } from "react";
 import { useQueryState } from "../use-query-state";
 import { styleToString, type StyleSheet } from "./stylesheet";
 import { camelToKebab } from "../camel-to-kebab";
@@ -8,28 +8,20 @@ type Props = {
   children: React.ReactNode;
 };
 
-const LIGHT_THEME = {
-  colorBackground: "#ffffff",
-  colorText: "#333333",
-  colorPrimary: "#007bff",
-  colorSecondary: "#6c757d",
+const TOKENS = {
+  colorBackground: "light-dark(#ffffff, #121212)",
+  colorText: "light-dark(#333333, #e0e0e0)",
+  colorPrimary: "light-dark(#007bff, #bb86fc)",
+  colorSecondary: "light-dark(#6c757d, #03dac6)",
   colorAccent: "#ff5722",
 } as const;
 
-const DARK_THEME = {
-  colorBackground: "#121212",
-  colorText: "#e0e0e0",
-  colorPrimary: "#bb86fc",
-  colorSecondary: "#03dac6",
-  colorAccent: "#ff5722",
-} as const;
+type Tokens = typeof TOKENS;
 
-type Theme = typeof LIGHT_THEME | typeof DARK_THEME;
-
-function themeToStyleSheet(theme: Theme): StyleSheet {
+function tokensToStyleSheet(tokens: Tokens): StyleSheet {
   return {
     ":root": Object.fromEntries(
-      Object.entries(theme).map(([key, value]) => [
+      Object.entries(tokens).map(([key, value]) => [
         `--${camelToKebab(key)}`,
         value,
       ])
@@ -37,35 +29,35 @@ function themeToStyleSheet(theme: Theme): StyleSheet {
   };
 }
 
-export function token(key: keyof Theme) {
+export function token(key: keyof Tokens) {
   return `var(--${camelToKebab(key)})`;
 }
-
-const lightStyleSheet = themeToStyleSheet(LIGHT_THEME);
-const darkStyleSheet = themeToStyleSheet(DARK_THEME);
-const systemStyleSheet = {
-  ...lightStyleSheet,
-  "@media(prefers-color-scheme: dark)": darkStyleSheet,
-};
 
 export function Theme(props: Props) {
   const [themeName] = useQueryState("theme");
 
-  const stylesheet = useMemo(() => {
-    switch (themeName) {
-      case "light":
-        return lightStyleSheet;
-      case "dark":
-        return darkStyleSheet;
-      default:
-        return systemStyleSheet;
-    }
+  useEffect(() => {
+    document.documentElement.classList.toggle("light", themeName === "light");
+    document.documentElement.classList.toggle("dark", themeName === "dark");
   }, [themeName]);
 
   return (
     <>
       <Head>
-        <style>{styleToString(stylesheet)}</style>
+        <style>{styleToString(tokensToStyleSheet(TOKENS))}</style>
+        <style>
+          {styleToString({
+            html: {
+              colorScheme: "light dark",
+              "&.light": {
+                colorScheme: "light",
+              },
+              "&.dark": {
+                colorScheme: "dark",
+              },
+            },
+          })}
+        </style>
       </Head>
       {props.children}
     </>

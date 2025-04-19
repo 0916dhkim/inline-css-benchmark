@@ -1,4 +1,6 @@
 import { useQueryState } from "../use-query-state";
+import { ScopedStyle } from "./scoped-style";
+import { token } from "./theme";
 
 export function ThemeSwitchButton() {
   const [themeName, setThemeName] = useQueryState("theme");
@@ -16,6 +18,20 @@ export function ThemeSwitchButton() {
 
   return (
     <button onClick={switchTheme}>
+      <ScopedStyle>
+        {{
+          "&": {
+            fontWeight: "bold",
+            padding: "0.5rem",
+            width: "12rem",
+            background: token("colorPrimary"),
+            borderRadius: "0.5rem",
+          },
+          "&:hover": {
+            background: token("colorSecondary"),
+          },
+        }}
+      </ScopedStyle>
       {themeName === "light" && "Light Theme"}
       {themeName === "dark" && "Dark Theme"}
       {!themeName && "System Theme"}

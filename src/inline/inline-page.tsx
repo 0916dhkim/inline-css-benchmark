@@ -15,8 +15,28 @@ export function InlinePage() {
             body: {
               background: token("colorBackground"),
               color: token("colorText"),
+            },
+            "*": {
+              boxSizing: "border-box",
               padding: "0",
               margin: "0",
+              border: "0 solid",
+            },
+            html: {
+              lineHeight: "1.5",
+            },
+            "h1, h2, h3, h4, h5, h6": {
+              fontSize: "inherit",
+              fontWeight: "inherit",
+            },
+            a: {
+              textDecoration: "inherit",
+            },
+            button: {
+              font: "inherit",
+              borderRadius: "0",
+              color: "inherit",
+              backgroundColor: "transparent",
             },
           })}
         </style>
