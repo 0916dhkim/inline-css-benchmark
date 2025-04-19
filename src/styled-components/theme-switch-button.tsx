@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useQueryState } from "../use-query-state";
+import { useQueryState } from "../common/use-query-state";
 import { useEffect } from "react";
 
 const StyledButton = styled.button`

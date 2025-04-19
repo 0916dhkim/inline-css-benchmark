@@ -1,14 +1,8 @@
-import { useEffect } from "react";
-import { useQueryState } from "../use-query-state";
+import { useQueryState } from "../common/use-query-state";
 import { cn } from "./utils";
 
 export function ThemeSwitchButton() {
   const [themeName, setThemeName] = useQueryState("theme");
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("light", themeName === "light");
-    document.documentElement.classList.toggle("dark", themeName === "dark");
-  }, [themeName]);
 
   const switchTheme = () => {
     switch (themeName) {

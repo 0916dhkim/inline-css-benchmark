@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { ScopedStyle } from "./scoped-style";
+import { ScopedStyle } from "./utils";
 import { token } from "./theme";
 
 export function Nav() {

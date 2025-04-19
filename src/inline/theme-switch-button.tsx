@@ -1,5 +1,5 @@
-import { useQueryState } from "../use-query-state";
-import { ScopedStyle } from "./scoped-style";
+import { useQueryState } from "../common/use-query-state";
+import { ScopedStyle } from "./utils";
 import { token } from "./theme";
 
 export function ThemeSwitchButton() {

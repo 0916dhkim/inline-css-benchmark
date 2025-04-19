@@ -1,7 +1,4 @@
-import { useEffect } from "react";
-import { useQueryState } from "../use-query-state";
-import { styleToString, type StyleSheet } from "./stylesheet";
-import { camelToKebab } from "../camel-to-kebab";
+import { camelToKebab, type StyleSheet, Style } from "./utils";
 import { Head } from "../common/head";
 
 type Props = {
@@ -34,30 +31,10 @@ export function token(key: keyof Tokens) {
 }
 
 export function Theme(props: Props) {
-  const [themeName] = useQueryState("theme");
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("light", themeName === "light");
-    document.documentElement.classList.toggle("dark", themeName === "dark");
-  }, [themeName]);
-
   return (
     <>
       <Head>
-        <style>{styleToString(tokensToStyleSheet(TOKENS))}</style>
-        <style>
-          {styleToString({
-            html: {
-              colorScheme: "light dark",
-              "&.light": {
-                colorScheme: "light",
-              },
-              "&.dark": {
-                colorScheme: "dark",
-              },
-            },
-          })}
-        </style>
+        <Style>{tokensToStyleSheet(TOKENS)}</Style>
       </Head>
       {props.children}
     </>

@@ -1,4 +1,4 @@
-import { ScopedStyle } from "./scoped-style";
+import { ScopedStyle } from "./utils";
 import { token } from "./theme";
 
 type Props = {
