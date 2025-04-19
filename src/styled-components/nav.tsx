@@ -1,20 +1,32 @@
 import { Link, useLocation } from "react-router";
-import { cn } from "./utils";
+import { styled } from "styled-components";
+
+const Container = styled.nav`
+  width: 100dvw;
+  background: ${({ theme }) => theme.colorBackground};
+  position: sticky;
+  top: 0;
+
+  & a {
+    color: ${({ theme }) => theme.colorText};
+    &:hover {
+      color: ${({ theme }) => theme.colorPrimary};
+    }
+  }
+`;
+
+const List = styled.ul`
+  list-style-type: none;
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+`;
 
 export function Nav() {
   const { search } = useLocation();
   return (
-    <nav
-      className={cn(
-        "w-dvh",
-        "bg-background",
-        "sticky",
-        "top-0",
-        "[&_a]:text-text",
-        "[&_a]:hover:text-primary"
-      )}
-    >
-      <ul className={cn("list-none", "flex", "p-4", "gap-4")}>
+    <Container>
+      <List>
         <li>
           <Link to={{ pathname: "/inline-css", search }}>Inline CSS</Link>
         </li>
@@ -26,7 +38,7 @@ export function Nav() {
             Styled Components
           </Link>
         </li>
-      </ul>
-    </nav>
+      </List>
+    </Container>
   );
 }

@@ -37,6 +37,11 @@ export function Nav() {
         <li>
           <Link to={{ pathname: "/tailwind", search }}>Tailwind CSS</Link>
         </li>
+        <li>
+          <Link to={{ pathname: "/styled-components", search }}>
+            Styled Components
+          </Link>
+        </li>
       </ul>
     </nav>
   );
