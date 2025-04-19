@@ -1,8 +1,9 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { ScopedStyle } from "./scoped-style";
 import { token } from "./theme";
 
 export function Nav() {
+  const { search } = useLocation();
   return (
     <nav
       style={{
@@ -31,10 +32,10 @@ export function Nav() {
         }}
       >
         <li>
-          <Link to="/">Home</Link>
+          <Link to={{ pathname: "/inline-css", search }}>Inline CSS</Link>
         </li>
         <li>
-          <Link to="/inline-css">Inline CSS</Link>
+          <Link to={{ pathname: "/tailwind", search }}>Tailwind CSS</Link>
         </li>
       </ul>
     </nav>

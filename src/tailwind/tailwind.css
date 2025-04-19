@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: light-dark(#ffffff, #121212);
+  --color-text: light-dark(#333333, #e0e0e0);
+  --color-primary: light-dark(#007bff, #bb86fc);
+  --color-secondary: light-dark(#6c757d, #03dac6);
+  --color-accent: #ff5722;
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    &.light {
+      color-scheme: light;
+    }
+    &.dark {
+      color-scheme: dark;
+    }
+  }
+
+  body {
+    @apply bg-background text-text;
+  }
+}
