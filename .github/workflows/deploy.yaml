@@ -1,7 +1,7 @@
 name: Deploy
 
 env:
-  VITE_BASE_PATH: ${{ variables.VITE_BASE_PATH }}
+  VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH }}
 
 on:
   push:
