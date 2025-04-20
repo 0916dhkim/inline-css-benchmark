@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# Inline CSS Benchmark
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Method
 
-Currently, two official plugins are available:
+I wrote 3 equivalent pages with inline css, Tailwind CSS, and Styled Components.
+Each page had 6822 DOM elements (measured with `document.getElementsByTagName('*').length`).
+For context, Amazon main page has ~2700 elements, YouTube feed ~7300 elements, and Gmail dashboard ~5500 elements.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I measured the performance of each page using https://pagespeed.web.dev
 
-## Expanding the ESLint configuration
+## Result
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Inline CSS
+  - Mobile FCP: 1.4s
+  - Mobile LCP: 1.4s
+  - Mobile TBT: 130ms
+  - Desktop FCP: 0.3s
+  - Desktop LCP: 0.4s
+  - Desktop TBT: 290ms
+- Tailwind CSS
+  - Mobile FCP: 1.4s
+  - Mobile LCP: 1.4s
+  - Mobile TBT: 140ms
+  - Desktop FCP: 0.3s
+  - Desktop LCP: 0.4s
+  - Desktop TBT: 180ms
+- Styled Components
+  - Mobile FCP: 1.4s
+  - Mobile LCP: 1.4s
+  - Mobile TBT: 250ms
+  - Desktop FCP: 0.3s
+  - Desktop LCP: 0.3s
+  - Desktop TBT: 160ms
 
-- Configure the top-level `parserOptions` property like this:
+## Conclusion
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+The choice of CSS didn't affect the FCP and LCP times in a meaningful way.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Inlining CSS does increase the TBT, so developers would need to pay more attention when rendering larger number of elements or applying more rules.
