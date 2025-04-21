@@ -53,7 +53,7 @@ export function StyledComponentsPage() {
       <GlobalStyle />
       <Nav />
       <ThemeSwitchButton />
-      {Array(100)
+      {Array(500)
         .fill(true)
         .map((_, i) => (
           <Section key={i}>
